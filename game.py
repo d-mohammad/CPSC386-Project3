@@ -173,6 +173,19 @@ def main():
 						k = King(x, y)
 						platforms.append(k)
 						entities.add(k)
+						
+					###################################
+					# Coin stuff
+					###################################
+					if col == "c":
+						c = Coin(x, y)
+						platforms.append(c)
+						entities.add(c)
+						
+					###################################
+					###################################
+						
+						
 					x += 16*3
 				y += 16*3
 				x = 0
@@ -251,12 +264,12 @@ def getLevel(currLevel):
 			"P         PPPPPPP                          P",
 			"P       PP                                 P",
 			"P                     PPPPPP               P",
-			"P                                          P",
+			"P        c                                 P",
 			"P   PPPPPPPPPPP                            P",
 			"P                                          P",
-			"P                                          P",
+			"P                      c                   P",
 			"P                 PPPPPPPPPPP              P",
-			"P                            PP            P",
+			"P                            PPc           P",
 			"P                              PP          P",
 			"P                                          P",
 			"P                                         KP",
@@ -487,6 +500,19 @@ class King(Entity):
 		self.image = pygame.image.load("images/king.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+##########################################################
+# Added by Anette for the coin
+##########################################################
+class Coin(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/coin.png").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+##########################################################
+##########################################################
 		
 class Background(Entity):
 	def __init__(self, image, x, y):
