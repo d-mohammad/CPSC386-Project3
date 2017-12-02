@@ -95,6 +95,18 @@ def main():
 				k = King(x, y)
 				platforms.append(k)
 				entities.add(k)
+				
+			###################################
+			# Coin stuff
+			###################################
+			if col == "c":
+				c = Coin(x, y)
+				platforms.append(c)
+				entities.add(c)
+				
+			###################################
+			###################################
+					
 			x += 16*3
 		y += 16*3
 		x = 0
