@@ -520,7 +520,7 @@ class Coin(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
 		self.image = pygame.image.load("images/coin.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.image = pygame.transform.scale(self.image,(16*2,16*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
 ##########################################################
