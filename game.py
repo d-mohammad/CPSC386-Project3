@@ -535,10 +535,12 @@ class Background(Entity):
 		self.image = pygame.image.load(image).convert()
 		
 		
-class ExitBlock(Platform):
+class ExitBlock(Entity):
 	def __init__(self, x, y):
-		Platform.__init__(self, x, y)
-		self.image.fill(Color("#0033FF"))
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/princess.jpg").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
 class PreviousBlock(Platform):
 	def __init__(self, x, y):
