@@ -49,6 +49,7 @@ character = pygame.transform.scale(character, (16*4,32*3))
 knightjump1 = character
 #action
 KINGFLAG = 1
+QUEENFLAG = 3
 dialogFlag = 0
 pygame.font.init()
 dialogFont = pygame.font.SysFont("garuda", 20)
@@ -277,12 +278,12 @@ def getLevel(currLevel):
 			"P         PPPPPPP                          P",
 			"P       PP                                 P",
 			"P                     PPPPPP               P",
-			"P        c                                 P",
+			"P                                          P",
 			"P   PPPPPPPPPPP                            P",
 			"P                                          P",
-			"P                      c                   P",
+			"P                                          P",
 			"P                 PPPPPPPPPPP              P",
-			"P                            PPc           P",
+			"P                            PP            P",
 			"P                              PP          P",
 			"P                                          P",
 			"P                                         KP",
@@ -455,6 +456,8 @@ class Player(Entity):
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
+				if isinstance(p, Queen):
+					getAction(action, QUEENFLAG)
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
@@ -510,6 +513,21 @@ def getAction(action, flag):
 				a = dialogFont.render("Hurry!", True, white)
 				pygame.draw.rect(screen, black, (500, 500, 100, 25), 0)
 				screen.blit(a, (500, 500))
+				
+		if(flag == 3):
+			a = dialogFont.render("You found me!", True, white)
+			b = dialogFont.render("Level Complete" , True, white)
+			pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
+			screen.blit(a, (400, 400))
+			screen.blit(b, (400, 430))
+			pygame.display.update()
+			sleep(3)
+			
+			global moveNext
+			moveNext = True
+			
+			
+			
 class Platform(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
