@@ -56,7 +56,6 @@ dialogFont = pygame.font.SysFont("garuda", 20)
 pygame.display.update()
 white = (255,255,255)
 black = (0,0,0)
-global level = 0
 
 
 def main():
@@ -454,6 +453,7 @@ class Player(Entity):
 					#go to next level based on currLevel variable
 					global moveNext
 					moveNext = True
+					getAction(action, QUEENFLAG)
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
@@ -524,11 +524,7 @@ def getAction(action, flag):
 			screen.blit(a, (400, 400))
 			screen.blit(b, (400, 430))
 			pygame.display.update()
-			sleep(3)
-			
-			currlevel = level + 1
-			level = getLevel(currLevel)
-			
+			sleep(3)			
 			
 			
 			
