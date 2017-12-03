@@ -116,6 +116,11 @@ def main():
 	camera = Camera(complex_camera, total_level_width, total_level_height)
 	player = Player(newX, newY)
 	entities.add(player)
+	###################################
+	items = pygame.sprite.Group()
+	coin = Coin(500,355,{'coin':1}, coinImg)
+	items.add(coin)
+	###################################
 
 	while 1:
 		timer.tick(60)
@@ -149,7 +154,7 @@ def main():
 		screen.blit(background,(0,0))
 		camera.update(player)
 		# update player, draw everything else
-		player.update(up, down, left, right, running, platforms, action)     
+		player.update(up, down, left, right, running, platforms, action, items)     
 		
 		#if reached portal, reset variables and draw next map
 		if (moveNext == True or movePrev == True):
@@ -440,6 +445,13 @@ class Player(Entity):
 		self.collide(0, self.yvel, platforms, action)
 
 		self.animate()
+		
+	###############################################	
+	def update(self, movex, movey, items):
+    		self.moveSprite(movex, movey)
+    		self.itemsCollision(items)
+    		self.render()
+	################################################
 
 	def collide(self, xvel, yvel, platforms, action):
 		for p in platforms:
@@ -487,6 +499,20 @@ class Player(Entity):
 	def updatecharacter(self, ansurf):
 		if not self.faceright: ansurf = pygame.transform.flip(ansurf,True,False)
 		self.image = ansurf
+		
+	####################################################	
+	def itemsCollision(self, items):
+    		pygame.sprite.spritecollide(self, items, True)	
+	#####################################################	
+	
+	#####################################################
+	def itemsCollision(self, items):
+    		collisionList = pygame.sprite.spritecollide(self, items, True)
+    		for collision in collisionList:
+        		item = collision.pickUp()
+       			#self.updateInventory(item)
+	######################################################
+	
 #action
 def getAction(action, flag):
 	#kingFlag  
@@ -522,6 +548,12 @@ class Coin(Entity):
 		self.image = pygame.image.load("images/coin.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3))
 		self.rect = Rect(x, y, 16*3, 16*3*2)
+		self.itemType = itemType
+		coinImg = 'items/coin.png'
+		
+	def pickUp(self):
+        #self.playSound()
+        	return self.itemType
 		
 ##########################################################
 ##########################################################
