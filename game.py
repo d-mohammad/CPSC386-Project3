@@ -478,9 +478,9 @@ class Player(Entity):
 					self.rect.top = p.rect.bottom
 					
 		##########################
-		if pygame.sprite.collide_rect(self, q):
-			if isinstance(q, Queen):
-				q.kill()
+		#if pygame.sprite.collide_rect(self, q):
+		#	if isinstance(q, Queen):
+		#		q.kill()
 		##########################
 					
 	def animate(self):
