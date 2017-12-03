@@ -479,7 +479,8 @@ class Player(Entity):
 					
 		##########################
 		if pygame.sprite.spritecollide(self, q):
-			q.kill()
+			if isinstance(q, Queen):
+				q.kill()
 		##########################
 					
 	def animate(self):
