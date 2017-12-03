@@ -300,7 +300,7 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P               P                          P",
 			"P                                          P",
-			"B        PP                                P",
+			"         PP                                P",
 			"B                                          P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
@@ -343,7 +343,7 @@ def getLevel(currLevel):
 			"P                                               P",
 			"P                                               P",
 			"P                                      PPP      P",
-			"P                                               B",
+			"P                                                ",
 			"P                                               B",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
@@ -549,9 +549,11 @@ class ExitBlock(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
-class PreviousBlock(Platform):
+class PreviousBlock(Entity):
 	def __init__(self, x, y):
-		Platform.__init__(self, x, y)
-		self.image.fill(Color("#0033FF"))
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/princess.jpg").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 if __name__ == "__main__":
 	main()
