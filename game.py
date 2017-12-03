@@ -463,6 +463,8 @@ class Player(Entity):
 					#moveNext = True
 					getAction(action, QUEENFLAG)
 					pygame.display.update()
+					global moveNext
+					moveNext = True
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
