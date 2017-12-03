@@ -83,11 +83,11 @@ def main():
 	bgImg = pygame.image.load('images/bg1.png')
 	background.blit(bgImg, (0,0))
 	screen.blit(background, (0,0))
-	
+	time = 0
 	pygame.display.update()
 	#bg = Surface((WIN_WIDTH,WIN_HEIGHT)).convert()
 	entities = pygame.sprite.Group()
-	speech = pygame.image.load("images/title.png").convert()
+	speech = pygame.image.load("images/title.png").convert_alpha()
 	speech = pygame.transform.scale(speech ,(171*2,108*2))
 	screen.blit(speech, (HALF_WIDTH - 171 ,HALF_HEIGHT - 108))
 	
@@ -106,23 +106,19 @@ def main():
 			if col == "e":
 				e = ExitBlock(x, y)
 				platforms.append(e)
-				entities.add(e)
-				
+				entities.add(e)				
 			if col == "B":
 				B = PreviousBlock(x, y)
 				platforms.append(B)
-				entities.add(B)
-		
+				entities.add(B)		
 			if col == "K":
 				k = King(x, y)
 				platforms.append(k)
-				entities.add(k)
-				
+				entities.add(k)				
 			if col == "F":
 				F = Princess(x, y)
 				platforms.append(F)
-				entities.add(F)
-					
+				entities.add(F)					
 			x += 16*3
 		y += 16*3
 		x = 0
@@ -136,6 +132,10 @@ def main():
 	#game run loop
 	while 1:
 		timer.tick(60)
+		time = time + 1
+		#3 minute timer to find the princess
+		if time == 10800:
+			break;
 		#allows for character to be moved
 		for e in pygame.event.get():
 			if e.type == QUIT: raise SystemExit("QUIT")
@@ -226,13 +226,23 @@ def main():
 			screen.blit(e.image, camera.apply(e))
 		pygame.display.update()
 	
-	#display end dialogue
-	screen.fill(black)
-	speech = pygame.image.load("images/end-dialogue.png")
-	#363 is width of image and 90 is height - will center it
-	screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
-	pygame.display.update()
-	sleep(2.5)
+	#if done then you reached the princess - show proper message
+	if done:
+		#display end dialogue
+		screen.fill(black)
+		speech = pygame.image.load("images/end-dialogue.png").convert_alpha()
+		#363 is width of image and 90 is height - will center it
+		screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
+		pygame.display.update()
+		sleep(2.5)
+	#otherwise show failure message
+	else:
+		screen.fill(black)
+		speech = pygame.image.load("images/fail.png")
+		#363 is width of image and 90 is height - will center it
+		screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
+		pygame.display.update()
+		sleep(2.5)
 	
 #allows for the camera to focus on the player - source provided
 #at start of the file
@@ -409,7 +419,7 @@ class Player(Entity):
 		Entity.__init__(self)
 		self.xvel = 0
 		self.yvel = 0
-		self.faceright = True
+		self.faceright = False
 		self.onGround = False
 		self.airborne = True
 		self.counter = 0
