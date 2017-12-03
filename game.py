@@ -477,12 +477,6 @@ class Player(Entity):
 				if yvel < 0:
 					self.rect.top = p.rect.bottom
 					
-		######################################################
-		for q in Queen:
-			if pygame.sprite.collide_rect(self, q):
-				#q.kill()
-		######################################################
-					
 					
 	def animate(self):
 
