@@ -241,7 +241,7 @@ def getLevel(currLevel):
 		level = [
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
-			"P                                          p",
+			"P                                          P",
 			"P                                          e",
 			"P                        PPPPPPPPP      PPPP",
 			"P                  PP                      P",
@@ -278,7 +278,7 @@ def getLevel(currLevel):
 	elif currLevel == 2:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"p                                          P",
+			"P                                          P",
 			"e                                          P",
 			"PPPP                                       P",
 			"P                              PP          P",
@@ -315,7 +315,7 @@ def getLevel(currLevel):
 	elif currLevel == 3:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"p                                               P",
+			"P                                               P",
 			"e                                               P",
 			"PPP                                             P",
 			"P                                      P        P",
