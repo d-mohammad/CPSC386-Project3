@@ -463,9 +463,7 @@ class Player(Entity):
 					global movePrev
 					movePrev = True
 					
-				if isinstance(p, PreviousBlock2):
-					global movePrev
-					movePrev = True
+				
 					
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
@@ -480,29 +478,7 @@ class Player(Entity):
 					moveNext = True
 					#pygame.event.post(pygame.event.Event(QUIT))
 					
-				if isinstance(p, ExitBlock2):
-					#go to next level based on currLevel variable
-					a = dialogFont.render("You found me!", True, white)
-					b = dialogFont.render("Level passed" , True, white)
-					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
-					screen.blit(a, (400, 400))
-					screen.blit(b, (400, 430))
-					pygame.display.update()
-					sleep(3)
-					global moveNext
-					moveNext = True
-					
-				if isinstance(p, ExitBlock3):
-					#go to next level based on currLevel variable
-					a = dialogFont.render("You found me!", True, white)
-					b = dialogFont.render("Level passed" , True, white)
-					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
-					screen.blit(a, (400, 400))
-					screen.blit(b, (400, 430))
-					pygame.display.update()
-					sleep(3)
-					global moveNext
-					moveNext = True	
+				
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
 				if xvel > 0:
@@ -580,26 +556,6 @@ class King(Entity):
 		self.image = pygame.image.load("images/king.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-##########################################################
-# Added by Anette for the coin
-##########################################################
-class Coin(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/coin.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3))
-		self.rect = Rect(x, y, 16*3, 16*3*2)
-		
-class Queen(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/king.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-##########################################################
-##########################################################
 		
 class Background(Entity):
 	def __init__(self, image, x, y):
