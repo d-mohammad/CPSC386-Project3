@@ -241,7 +241,7 @@ def getLevel(currLevel):
 		level = [
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
-			"P                                          e",
+			"P                                          p",
 			"P                                          e",
 			"P                        PPPPPPPPP      PPPP",
 			"P                  PP                      P",
@@ -278,7 +278,7 @@ def getLevel(currLevel):
 	elif currLevel == 2:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"e                                          P",
+			"p                                          P",
 			"e                                          P",
 			"PPPP                                       P",
 			"P                              PP          P",
@@ -315,7 +315,7 @@ def getLevel(currLevel):
 	elif currLevel == 3:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"e                                               P",
+			"p                                               P",
 			"e                                               P",
 			"PPP                                             P",
 			"P                                      P        P",
@@ -428,6 +428,13 @@ class Player(Entity):
 					movePrev = True
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
+					a = dialogFont.render("You found me!", True, white)
+					b = dialogFont.render("Level passed" , True, white)
+					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
+					screen.blit(a, (400, 400))
+					screen.blit(b, (400, 430))
+					pygame.display.update()
+					sleep(3)
 					global moveNext
 					moveNext = True
 					#pygame.event.post(pygame.event.Event(QUIT))
