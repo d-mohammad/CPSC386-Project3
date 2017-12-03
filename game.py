@@ -463,7 +463,7 @@ class Player(Entity):
 					global movePrev
 					movePrev = True
 					
-				if isinstance(p, PreviousBlock2):
+				if isinstance(p, PB2):
 					global movePrev
 					movePrev = True
 					
@@ -593,7 +593,7 @@ class PreviousBlock(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
-class PreviousBlock2(Entity):
+class PB2(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
 		self.image = pygame.image.load("images/p2.png").convert()
