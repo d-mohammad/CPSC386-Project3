@@ -458,6 +458,8 @@ class Player(Entity):
 					getAction(action, KINGFLAG)
 				if isinstance(p, Queen):
 					getAction(action, QUEENFLAG)
+					proceed = level + 1
+					level = getLevel(proceed)
 					#global moveNext
 					#moveNext = True
 				if xvel > 0:
