@@ -55,12 +55,7 @@ dialogFont = pygame.font.SysFont("garuda", 20)
 pygame.display.update()
 white = (255,255,255)
 black = (0,0,0)
-#queen stuff?
-queens = pygame.sprite.Group()
-all_sprites = pygame.sprite.Group()
-queen_delete = pygame.sprite.spritecollide(player, q, True)
-all_sprites.draw(screen)
-queens.update()
+
 
 def main():
 	timer = pygame.time.Clock()
@@ -77,12 +72,6 @@ def main():
 	pygame.display.update()
 	#bg = Surface((WIN_WIDTH,WIN_HEIGHT)).convert()
 	entities = pygame.sprite.Group()
-	
-	#####################################
-	queens = pygame.sprite.Group()
-	all_sprites = pygame.sprite.Group()
-	queen_delete = pygame.sprite.spritecollide(player, q, True)
-	#####################################
    
 	x = y = 0
 	level = getLevel(currLevel)
@@ -488,6 +477,10 @@ class Player(Entity):
 				if yvel < 0:
 					self.rect.top = p.rect.bottom
 					
+		##########################
+		if pygame.sprite.spritecollide(self, q):
+			q.kill()
+		##########################
 					
 	def animate(self):
 
