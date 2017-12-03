@@ -458,6 +458,8 @@ class Player(Entity):
 					getAction(action, KINGFLAG)
 				if isinstance(p, Queen):
 					getAction(action, QUEENFLAG)
+					global moveNext
+					moveNext = True
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
@@ -523,8 +525,7 @@ def getAction(action, flag):
 			pygame.display.update()
 			sleep(3)
 			
-			global moveNext
-			moveNext = True
+			
 			
 			
 			
