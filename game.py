@@ -480,7 +480,7 @@ class Player(Entity):
 		######################################################
 		for q in Queen:
 			if pygame.sprite.collide_rect(self, q):
-				q.kill()
+				#q.kill()
 		######################################################
 					
 					
