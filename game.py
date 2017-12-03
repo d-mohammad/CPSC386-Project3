@@ -354,7 +354,7 @@ def getLevel(currLevel):
 			"                                                P",
 			"g                                               P",
 			"PPP                                             P",
-			"P                                      P        P",
+			"P            PP                        P        P",
 			"P                      PP                       P",
 			"P     P                         PP              P",
 			"P                                        PP     P",
@@ -462,6 +462,11 @@ class Player(Entity):
 				if isinstance(p, PreviousBlock):
 					global movePrev
 					movePrev = True
+					
+				if isinstance(p, PreviousBlock2):
+					global movePrev
+					movePrev = True
+					
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
 					a = dialogFont.render("You found me!", True, white)
@@ -474,6 +479,30 @@ class Player(Entity):
 					global moveNext
 					moveNext = True
 					#pygame.event.post(pygame.event.Event(QUIT))
+					
+				if isinstance(p, ExitBlock2):
+					#go to next level based on currLevel variable
+					a = dialogFont.render("You found me!", True, white)
+					b = dialogFont.render("Level passed" , True, white)
+					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
+					screen.blit(a, (400, 400))
+					screen.blit(b, (400, 430))
+					pygame.display.update()
+					sleep(3)
+					global moveNext
+					moveNext = True
+					
+				if isinstance(p, ExitBlock3):
+					#go to next level based on currLevel variable
+					a = dialogFont.render("You found me!", True, white)
+					b = dialogFont.render("Level passed" , True, white)
+					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
+					screen.blit(a, (400, 400))
+					screen.blit(b, (400, 430))
+					pygame.display.update()
+					sleep(3)
+					global moveNext
+					moveNext = True	
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
 				if xvel > 0:
