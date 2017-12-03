@@ -201,7 +201,7 @@ def main():
 	
 	font = pygame.font.Font(None, 50)
 	BLACK = (0,0,0)
-	text = font.render("Game Over", True, BLACK)
+	text = font.render("You Win!!!", True, BLACK)
 	text_rect = text.get_rect()
 	text_x = WIN_WIDTH / 2 - text_rect.width / 2
 	text_y = WIN_HEIGHT / 2 - text_rect.height / 2
@@ -527,25 +527,7 @@ class King(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
-##########################################################
-# Added by Anette for the coin
-##########################################################
-class Coin(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/coin.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3))
-		self.rect = Rect(x, y, 16*3, 16*3*2)
-		
-class Queen(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/king.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-##########################################################
-##########################################################
+
 		
 class Background(Entity):
 	def __init__(self, image, x, y):
@@ -560,34 +542,13 @@ class ExitBlock(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
-class ExitBlock2(Entity):
+		
+
+class PreviousBlock(Platform):
 	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/p2.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		Platform.__init__(self, x, y)
+		self.image.fill(Color("#0033FF"))
 		
-class ExitBlock3(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/p3.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)		
-		
-class PreviousBlock(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/princess.jpg").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-class PreviousBlock2(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/p2.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-		
+
 if __name__ == "__main__":
 	main()
