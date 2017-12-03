@@ -451,7 +451,6 @@ class Player(Entity):
 					movePrev = True
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
-					getAction(action, QUEENFLAG)
 					global moveNext
 					moveNext = True
 					
@@ -463,6 +462,7 @@ class Player(Entity):
 					#global moveNext
 					#moveNext = True
 					getAction(action, QUEENFLAG)
+					pygame.display.update()
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
