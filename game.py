@@ -278,7 +278,7 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P                                          e",
 			"P                                          e",
-			"P                        PPPPPPPPP      PPPP",
+			"P                        PPPPPPPPP       PPP",
 			"P                  PP                      P",
 			"P                PP                        P",
 			"P                                          P",
