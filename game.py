@@ -451,9 +451,10 @@ class Player(Entity):
 					movePrev = True
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
+					getAction(action, QUEENFLAG)
 					global moveNext
 					moveNext = True
-					getAction(action, QUEENFLAG)
+					
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
