@@ -241,7 +241,7 @@ def getLevel(currLevel):
 		level = [
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
-			"P                                          P",
+			"P                                           ",
 			"P                                          e",
 			"P                        PPPPPPPPP      PPPP",
 			"P                  PP                      P",
@@ -278,7 +278,7 @@ def getLevel(currLevel):
 	elif currLevel == 2:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"P                                          P",
+			"                                           P",
 			"e                                          P",
 			"PPPP                                       P",
 			"P                              PP          P",
@@ -300,7 +300,7 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P               P                          P",
 			"P                                          P",
-			"P        PP                                P",
+			"B        PP                                P",
 			"B                                          P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
@@ -315,7 +315,7 @@ def getLevel(currLevel):
 	elif currLevel == 3:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"P                                               P",
+			"                                                P",
 			"e                                               P",
 			"PPP                                             P",
 			"P                                      P        P",
