@@ -411,7 +411,7 @@ class Player(Entity):
 		self.image = knightstand1
 		self.rect = Rect(x, y, 16*4, 32*3)
 
-	def update(self, up, down, left, right, running, platforms, action):
+	def update(self, up, down, left, right, running, platforms, action, movex, movey, items):
 		if up:
 			# only jump if on the ground
 			if self.onGround: self.yvel -= 10
@@ -447,7 +447,7 @@ class Player(Entity):
 		self.animate()
 		
 	###############################################	
-	def update(self, movex, movey, items):
+	#def update(self, movex, movey, items):
     		self.moveSprite(movex, movey)
     		self.itemsCollision(items)
     		self.render()
