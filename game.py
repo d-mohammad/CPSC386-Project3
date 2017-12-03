@@ -453,14 +453,14 @@ class Player(Entity):
 					#go to next level based on currLevel variable
 					global moveNext
 					moveNext = True
-					#getAction(action, QUEENFLAG)
+					getAction(action, QUEENFLAG)
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
 				if isinstance(p, Queen):
 					
-					global moveNext
-					moveNext = True
+					#global moveNext
+					#moveNext = True
 					getAction(action, QUEENFLAG)
 				if xvel > 0:
 					self.rect.right = p.rect.left
