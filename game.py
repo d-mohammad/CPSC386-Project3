@@ -588,14 +588,14 @@ class ExitBlock(Entity):
 class ExitBlock2(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/p2.jpg").convert()
+		self.image = pygame.image.load("images/p2.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
 class ExitBlock3(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/p3.jpg").convert()
+		self.image = pygame.image.load("images/p3.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)		
 		
@@ -609,7 +609,7 @@ class PreviousBlock(Entity):
 class PreviousBlock2(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/p2.jpg").convert()
+		self.image = pygame.image.load("images/p2.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
