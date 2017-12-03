@@ -456,10 +456,10 @@ class Player(Entity):
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
-				if isinstance(p, Queen):
-					getAction(action, QUEENFLAG)
-					global moveNext
-					moveNext = True
+				#if isinstance(p, Queen):
+				#	getAction(action, QUEENFLAG)
+				#	global moveNext
+				#	moveNext = True
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
@@ -523,7 +523,7 @@ def getAction(action, flag):
 			screen.blit(a, (400, 400))
 			screen.blit(b, (400, 430))
 			pygame.display.update()
-			sleep(3)
+			#sleep(3)
 			
 			
 			
