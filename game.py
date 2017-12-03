@@ -521,6 +521,7 @@ def getAction(action, flag):
 				screen.blit(c, (400, 460))
 				pygame.display.update()
 				sleep(3)
+				k.kill()
 				
 				dialogFlag = dialogFlag + 1
 			elif(dialogFlag == 1):
