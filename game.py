@@ -457,7 +457,7 @@ class Player(Entity):
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
 				if isinstance(p, Queen):
-				#	getAction(action, QUEENFLAG)
+					getAction(action, QUEENFLAG)
 				#	global moveNext
 				#	moveNext = True
 				if xvel > 0:
