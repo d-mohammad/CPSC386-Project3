@@ -10,10 +10,12 @@ WIN_HEIGHT = 224*3
 HALF_WIDTH = int(WIN_WIDTH / 2)
 HALF_HEIGHT = int(WIN_HEIGHT / 2)
 
+#determine whether to switch maps - used in while loop
 moveNext = False
 movePrev = False
 done = False
 
+#standard pygame initializations
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
 DEPTH = 32
 FLAGS = 0
@@ -23,6 +25,7 @@ pygame.init()
 screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
 pygame.display.set_caption("Use arrows to move!")
 
+#set character animations and sizes
 character = Surface((16,32),pygame.SRCALPHA)
 character = pygame.image.load("images/stand.png").convert_alpha()
 character = pygame.transform.scale(character, (16*4,32*3))
@@ -47,9 +50,8 @@ character = Surface((16,32),pygame.SRCALPHA)
 character = pygame.image.load("images/jump.png").convert_alpha()
 character = pygame.transform.scale(character, (16*4,32*3))
 knightjump1 = character
-#action
-KINGFLAG = 1
-dialogFlag = 0
+
+#allow for font to be rendered later
 pygame.font.init()
 dialogFont = pygame.font.SysFont("garuda", 20)
 pygame.display.update()
@@ -58,11 +60,11 @@ black = (0,0,0)
 
 
 def main():
+	#initialize all required variables
 	timer = pygame.time.Clock()
 	currLevel = 1
-	up = down = left = right = running = action = False
+	up = down = left = right = running = False
 	platforms = []
-	#bg = Background('bg1.png', 0, 0)
 	background = pygame.Surface(screen.get_size())
 	background = background.convert()
 	background.fill((0,0,0))
@@ -75,9 +77,8 @@ def main():
    
 	x = y = 0
 	level = getLevel(currLevel)
-
 	
-	# build the level
+	# build the level based off the level returned
 	for row in level:
 		for col in row:
 			if col == "P":
@@ -88,14 +89,21 @@ def main():
 				e = ExitBlock(x, y)
 				platforms.append(e)
 				entities.add(e)
+				
 			if col == "B":
 				B = PreviousBlock(x, y)
 				platforms.append(B)
 				entities.add(B)
+		
 			if col == "K":
 				k = King(x, y)
 				platforms.append(k)
 				entities.add(k)
+				
+			if col == "F":
+				F = Princess(x, y)
+				platforms.append(F)
+				entities.add(F)
 					
 			x += 16*3
 		y += 16*3
@@ -107,9 +115,10 @@ def main():
 	player = Player(newX, newY)
 	entities.add(player)
 
+	#game run loop
 	while 1:
 		timer.tick(60)
-		
+		#allows for character to be moved
 		for e in pygame.event.get():
 			if e.type == QUIT: raise SystemExit("QUIT")
 			if e.type == KEYDOWN and e.key == K_ESCAPE:
@@ -122,8 +131,6 @@ def main():
 				left = True
 			if e.type == KEYDOWN and e.key == K_RIGHT:
 				right = True
-			if e.type == KEYDOWN and e.key == K_SPACE:
-				action = True
 			if e.type == KEYUP and e.key == K_UP:
 				up = False
 			if e.type == KEYUP and e.key == K_DOWN:
@@ -132,17 +139,14 @@ def main():
 				right = False
 			if e.type == KEYUP and e.key == K_LEFT:
 				left = False
-			if e.type == KEYUP and e.key == K_SPACE:
-				action = False
 			
-		#screen.blit(bg,(0,0))
 		screen.blit(background,(0,0))
 		camera.update(player)
 		# update player, draw everything else
-		player.update(up, down, left, right, running, platforms, action)     
+		player.update(up, down, left, right, running, platforms)     
 		
-		#if reached portal, reset variables and draw next map
-		if (moveNext == True or movePrev == True):
+		#if reached portal, move to respective map or finish the game
+		if (moveNext == True or movePrev == True or done == True):
 			x=0
 			y=0
 			if moveNext:
@@ -150,11 +154,21 @@ def main():
 			if movePrev:
 				currLevel = currLevel - 1			
 			
+			#reset platforms in order to build the new map
 			platforms=[]
+			#get the next or previous level
 			level = getLevel(currLevel)
 			
+			#if game is finished, display dialogue and leave game loop
 			if done:
+				for e in entities:
+					screen.blit(e.image, camera.apply(e))
+				speech = pygame.image.load("images/princess-dialogue.png").convert_alpha()
+				screen.blit(speech, (40,0))
+				pygame.display.update()
+				sleep(2)
 				break
+				
 			entities = pygame.sprite.Group()
 		
 			for row in level:
@@ -166,17 +180,19 @@ def main():
 					if col == "e":
 						e = ExitBlock(x, y)
 						platforms.append(e)
-						entities.add(e)
+						entities.add(e)					
 					if col == "B":
 						B = PreviousBlock(x, y)
 						platforms.append(B)
-						entities.add(B)
+						entities.add(B)					
 					if col == "K":
 						k = King(x, y)
 						platforms.append(k)
-						entities.add(k)
-					
-						
+						entities.add(k)					
+					if col == "F":
+						F = Princess(x, y)
+						platforms.append(F)
+						entities.add(F)						
 					x += 16*3
 				y += 16*3
 				x = 0
@@ -186,23 +202,22 @@ def main():
 			camera = Camera(complex_camera, total_level_width, total_level_height)
 			player = Player(newX, newY)
 			entities.add(player)
-			sleep(.2)
+			sleep(.4)
+		#draw all the entities added through level generation
 		for e in entities:
 			screen.blit(e.image, camera.apply(e))
 		pygame.display.update()
 	
-	
-	font = pygame.font.Font(None, 50)
-	BLACK = (0,0,0)
-	text = font.render("Game Over", True, BLACK)
-	text_rect = text.get_rect()
-	text_x = WIN_WIDTH / 2 - text_rect.width / 2
-	text_y = WIN_HEIGHT / 2 - text_rect.height / 2
-
-	screen.blit(text, [text_x, text_y])
+	#display end dialogue
+	screen.fill(black)
+	speech = pygame.image.load("images/end-dialogue.png")
+	#363 is width of image and 90 is height - will center it
+	screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
 	pygame.display.update()
-	sleep(2)
+	sleep(2.5)
 	
+#allows for the camera to focus on the player - source provided
+#at start of the file
 class Camera(object):
 	def __init__(self, camera_func, width, height):
 		self.camera_func = camera_func
@@ -230,12 +245,14 @@ def complex_camera(camera, target_rect):
 	t = min(0, t)                           # stop scrolling at the top
 	return Rect(l, t, w, h)
 
+#returns the next or previous level for generation
+#sets character spawn coordinates
 def getLevel(currLevel):
 	global newX
 	global newY
 	global moveNext
 	global movePrev
-	global done
+	
 	level = []
 	if currLevel == 1:
 		level = [
@@ -263,7 +280,7 @@ def getLevel(currLevel):
 			"P                            PP            P",
 			"P                              PP          P",
 			"P                                          P",
-			"P                                         KP",
+			"P                                    K     P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
 		total_level_height = len(level)*16*3
@@ -272,7 +289,7 @@ def getLevel(currLevel):
 			newX = total_level_width - 150
 			newY = 164
 		else:
-			newX = total_level_width - 300
+			newX = total_level_width - 150
 			newY = total_level_height - 80
 		
 	elif currLevel == 2:
@@ -300,7 +317,7 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P               P                          P",
 			"P                                          P",
-			"P        PP                                P",
+			"B        PP                                P",
 			"B                                          P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
@@ -315,10 +332,10 @@ def getLevel(currLevel):
 	elif currLevel == 3:
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-			"e                                               P",
-			"e                                               P",
+			"                                                P",
+			"F                                               P",
 			"PPP                                             P",
-			"P                                      P        P",
+			"P            PP                        P        P",
 			"P                      PP                       P",
 			"P     P                         PP              P",
 			"P                                        PP     P",
@@ -354,25 +371,21 @@ def getLevel(currLevel):
 			newY = total_level_height - 80
 		else:
 			newX = total_level_width - 150
-			newY = total_level_height - 80
-				  
-	elif currLevel == 4:
-		level = ["PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-				 "                                                 ",
-				 "                                                 ",
-				 "                                                 ",
-				 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
-		done = True
+			newY = total_level_height - 80				 
 	
 	moveNext = False
 	movePrev = False
 	
 	return level
 	
+#base entity that is used to create most objects
 class Entity(pygame.sprite.Sprite):
 	def __init__(self):
 		pygame.sprite.Sprite.__init__(self)
 
+
+#player class that contains the image and position(rectangle)
+#updates player position based on keypress and detects collision
 class Player(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
@@ -385,7 +398,7 @@ class Player(Entity):
 		self.image = knightstand1
 		self.rect = Rect(x, y, 16*4, 32*3)
 
-	def update(self, up, down, left, right, running, platforms, action):
+	def update(self, up, down, left, right, running, platforms):
 		if up:
 			# only jump if on the ground
 			if self.onGround: self.yvel -= 10
@@ -410,29 +423,33 @@ class Player(Entity):
 		# increment in x direction
 		self.rect.left += self.xvel
 		# do x-axis collisions
-		self.collide(self.xvel, 0, platforms, action)
+		self.collide(self.xvel, 0, platforms)
 		# increment in y direction
 		self.rect.top += self.yvel
 		# assuming we're in the air
 		self.onGround = False;
 		# do y-axis collisions
-		self.collide(0, self.yvel, platforms, action)
+		self.collide(0, self.yvel, platforms)
 
 		self.animate()
 
-	def collide(self, xvel, yvel, platforms, action):
+	#will perform different actions based on what the player
+	#is colliding with
+	def collide(self, xvel, yvel, platforms):
+		global done
 		for p in platforms:
 			if pygame.sprite.collide_rect(self, p):
 				if isinstance(p, PreviousBlock):
 					global movePrev
-					movePrev = True
+					movePrev = True					
 				if isinstance(p, ExitBlock):
-					#go to next level based on currLevel variable
 					global moveNext
-					moveNext = True
-					#pygame.event.post(pygame.event.Event(QUIT))
+					moveNext = True				
+				if isinstance(p, Princess):					
+					done = True
 				if isinstance(p, King):
-					getAction(action, KINGFLAG)
+					speech = pygame.image.load("images/king-dialogue.png").convert_alpha()
+					screen.blit(speech, (440,450))			
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
@@ -444,15 +461,15 @@ class Player(Entity):
 					self.yvel = 0
 				if yvel < 0:
 					self.rect.top = p.rect.bottom
+	#Jump animations				
 	def animate(self):
-
 		if self.xvel > 0 or self.xvel < 0:
 			self.walkloop()
 			if self.airborne: self.updatecharacter(knightjump1)
 		else:
 			self.updatecharacter(knightstand1)
 			if self.airborne: self.updatecharacter(knightjump1)
-
+	#walk animations - done by alernating images
 	def walkloop(self):
 		if self.counter == 5:
 			self.updatecharacter(knightwalk1)
@@ -465,84 +482,49 @@ class Player(Entity):
 
 	def updatecharacter(self, ansurf):
 		if not self.faceright: ansurf = pygame.transform.flip(ansurf,True,False)
-		self.image = ansurf
-#action
-def getAction(action, flag):
-	#kingFlag  
-	global dialogFlag
-	if action:  
-		if(flag == 1):
-			if(dialogFlag == 0):
-				a = dialogFont.render("Can you please help find", True, white)
-				b = dialogFont.render("my daughter I think she's" , True, white)
-				c = dialogFont.render("around here somewhere" , True, white)
-				pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
-				screen.blit(a, (400, 400))
-				screen.blit(b, (400, 430))
-				screen.blit(c, (400, 460))
-				pygame.display.update()
-				sleep(3)
-				
-				dialogFlag = dialogFlag + 1
-			elif(dialogFlag == 1):
-				a = dialogFont.render("Hurry!", True, white)
-				pygame.draw.rect(screen, black, (500, 500, 100, 25), 0)
-				screen.blit(a, (500, 500))
-				
-	
+		self.image = ansurf				
 			
-			
+#block used to create the map
 class Platform(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/block.png").convert()
+		self.image = pygame.image.load("images/block.png").convert_alpha()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3))
 		self.rect = Rect(x, y, 16*3, 16*3)
 
-	def update(self):
-		pass
-
+#used to create the King NPC
 class King(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/king.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.image = pygame.image.load("images/king.png").convert_alpha()
+		self.image = pygame.transform.scale(self.image,(16*4,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-##########################################################
-# Added by Anette for the coin
-##########################################################
-class Coin(Entity):
+
+#create the Prinecss NPC
+class Princess(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/coin.png").convert()
+		self.image = pygame.image.load("images/p2.png").convert_alpha()
+		self.image = pygame.transform.scale(self.image,(16*4,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+#used to determine exit to the new map
+#currently image just set to blue filling for distinction
+class ExitBlock(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/exit-block.png").convert_alpha()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3))
-		self.rect = Rect(x, y, 16*3, 16*3*2)
-		
-class Queen(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/king.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-##########################################################
-##########################################################
-		
-class Background(Entity):
-	def __init__(self, image, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load(image).convert()
-		
-		
-class ExitBlock(Platform):
-	def __init__(self, x, y):
-		Platform.__init__(self, x, y)
 		self.image.fill(Color("#0033FF"))
+		self.rect = Rect(x, y, 16*3, 16*3)
 		
+#used to determine exit to the previous map
+#currently image just set to blue filling for distinction
 class PreviousBlock(Platform):
 	def __init__(self, x, y):
 		Platform.__init__(self, x, y)
 		self.image.fill(Color("#0033FF"))
+		
+
 if __name__ == "__main__":
 	main()
