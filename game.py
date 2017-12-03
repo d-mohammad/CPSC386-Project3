@@ -49,6 +49,7 @@ character = pygame.transform.scale(character, (16*4,32*3))
 knightjump1 = character
 #action
 KINGFLAG = 1
+QUEENFLAG = 3
 dialogFlag = 0
 pygame.font.init()
 dialogFont = pygame.font.SysFont("garuda", 20)
@@ -96,6 +97,17 @@ def main():
 				k = King(x, y)
 				platforms.append(k)
 				entities.add(k)
+				
+			###################################
+			# Coin stuff
+			###################################
+			if col == "q":
+				q = Queen(x, y)
+				platforms.append(c)
+				entities.add(c)
+				
+			###################################
+			###################################
 					
 			x += 16*3
 		y += 16*3
@@ -175,7 +187,18 @@ def main():
 						k = King(x, y)
 						platforms.append(k)
 						entities.add(k)
-					
+						
+					###################################
+					# Coin stuff
+					###################################
+					if col == "q":
+						q = Queen(x, y)
+						platforms.append(c)
+						entities.add(c)
+						
+					###################################
+					###################################
+						
 						
 					x += 16*3
 				y += 16*3
@@ -242,7 +265,7 @@ def getLevel(currLevel):
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
 			"P                                          e",
-			"P                                          e",
+			"P                                         qe",
 			"P                        PPPPPPPPP      PPPP",
 			"P                  PP                      P",
 			"P                PP                        P",
@@ -433,6 +456,10 @@ class Player(Entity):
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
+				if isinstance(p, Queen):
+					getAction(action, QUEENFLAG)
+					#global moveNext
+					#moveNext = True
 				if xvel > 0:
 					self.rect.right = p.rect.left
 				if xvel < 0:
@@ -489,7 +516,17 @@ def getAction(action, flag):
 				pygame.draw.rect(screen, black, (500, 500, 100, 25), 0)
 				screen.blit(a, (500, 500))
 				
-	
+		if(flag == 3):
+			a = dialogFont.render("You found me!", True, white)
+			b = dialogFont.render("Level Complete" , True, white)
+			pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
+			screen.blit(a, (400, 400))
+			screen.blit(b, (400, 430))
+			pygame.display.update()
+			sleep(3)
+			
+			
+			
 			
 			
 class Platform(Entity):
