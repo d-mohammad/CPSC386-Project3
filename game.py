@@ -460,7 +460,7 @@ class Player(Entity):
 					getAction(action, QUEENFLAG)
 					#proceed = level + 1
 					#level = getLevel(proceed)
-					global moveNext
+					#global moveNext
 					#moveNext = True
 				if xvel > 0:
 					self.rect.right = p.rect.left
@@ -525,7 +525,7 @@ def getAction(action, flag):
 			screen.blit(a, (400, 400))
 			screen.blit(b, (400, 430))
 			pygame.display.update()
-			#sleep(3)
+			sleep(3)
 			
 			
 			
