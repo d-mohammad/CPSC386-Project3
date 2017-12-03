@@ -456,8 +456,8 @@ class Player(Entity):
 					#pygame.event.post(pygame.event.Event(QUIT))
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
-				#if isinstance(p, Queen):
-					#getAction(action, QUEENFLAG)
+				if isinstance(p, Queen):
+					getAction(action, QUEENFLAG)
 					#global moveNext
 					#moveNext = True
 				if xvel > 0:
