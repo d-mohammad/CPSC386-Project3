@@ -463,7 +463,9 @@ class Player(Entity):
 					global movePrev
 					movePrev = True
 					
-				
+				if isinstance(p, PreviousBlock2):
+					global movePrev
+					movePrev = True
 					
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
