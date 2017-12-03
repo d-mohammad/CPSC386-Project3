@@ -101,8 +101,8 @@ def main():
 			###################################
 			# Coin stuff
 			###################################
-			if col == "c":
-				c = Coin(x, y)
+			if col == "q":
+				q = Queen(x, y)
 				platforms.append(c)
 				entities.add(c)
 				
@@ -191,8 +191,8 @@ def main():
 					###################################
 					# Coin stuff
 					###################################
-					if col == "c":
-						c = Coin(x, y)
+					if col == "q":
+						q = Queen(x, y)
 						platforms.append(c)
 						entities.add(c)
 						
@@ -265,7 +265,7 @@ def getLevel(currLevel):
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
 			"P                                          e",
-			"P                                          e",
+			"P                                         qe",
 			"P                        PPPPPPPPP      PPPP",
 			"P                  PP                      P",
 			"P                PP                        P",
@@ -554,6 +554,13 @@ class Coin(Entity):
 		self.image = pygame.image.load("images/coin.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3))
 		self.rect = Rect(x, y, 16*3, 16*3*2)
+		
+class Queen(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/king.png").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
 ##########################################################
 ##########################################################
