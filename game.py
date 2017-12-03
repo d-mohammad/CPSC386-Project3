@@ -88,10 +88,28 @@ def main():
 				e = ExitBlock(x, y)
 				platforms.append(e)
 				entities.add(e)
+				
+					
+			if col == "f":
+				f = ExitBlock2(x, y)
+				platforms.append(f)
+				entities.add(f)
+						
+			if col == "g":
+				g = ExitBlock3(x, y)
+				platforms.append(g)
+				entities.add(g)
+				
 			if col == "B":
 				B = PreviousBlock(x, y)
 				platforms.append(B)
 				entities.add(B)
+				
+			if col == "b":
+				b = PreviousBlock2(x, y)
+				platforms.append(b)
+				entities.add(b)	
+					
 			if col == "K":
 				k = King(x, y)
 				platforms.append(k)
@@ -167,10 +185,28 @@ def main():
 						e = ExitBlock(x, y)
 						platforms.append(e)
 						entities.add(e)
+						
+					if col == "f":
+						f = ExitBlock2(x, y)
+						platforms.append(f)
+						entities.add(f)
+						
+					if col == "g":
+						g = ExitBlock3(x, y)
+						platforms.append(g)
+						entities.add(g)
+					
+						
 					if col == "B":
 						B = PreviousBlock(x, y)
 						platforms.append(B)
 						entities.add(B)
+						
+					if col == "b":
+						b = PreviousBlock2(x, y)
+						platforms.append(b)
+						entities.add(b)
+						
 					if col == "K":
 						k = King(x, y)
 						platforms.append(k)
@@ -279,7 +315,7 @@ def getLevel(currLevel):
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"                                           P",
-			"e                                          P",
+			"f                                          P",
 			"PPPP                                       P",
 			"P                              PP          P",
 			"P         P   PP                           P",
@@ -316,7 +352,7 @@ def getLevel(currLevel):
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"                                                P",
-			"e                                               P",
+			"g                                               P",
 			"PPP                                             P",
 			"P                                      P        P",
 			"P                      PP                       P",
@@ -344,7 +380,7 @@ def getLevel(currLevel):
 			"P                                               P",
 			"P                                      PPP      P",
 			"P                                                ",
-			"P                                               B",
+			"P                                               b",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
 		total_level_height = len(level)*16*3
@@ -549,11 +585,34 @@ class ExitBlock(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
+class ExitBlock2(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/p2.jpg").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+class ExitBlock3(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/p3.jpg").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)		
+		
 class PreviousBlock(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
 		self.image = pygame.image.load("images/princess.jpg").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+class PreviousBlock2(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/p2.jpg").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+		
 if __name__ == "__main__":
 	main()
