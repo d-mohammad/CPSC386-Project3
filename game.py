@@ -5,7 +5,8 @@
 #ChiliGames - Knight images - https://opengameart.org/content/knight-and-knight-animation
 #Platform - Kenney - https://opengameart.org/content/platformer-tiles
 #Princess image - ?
-
+#Music - Code Manu - https://opengameart.org/content/platformer-game-music-pack
+#Background Image - DPP Reskinning - http://appreskinning.blogspot.com/2017/07/backgrounds-for-2d-platforms-pack.html
 
 #! /usr/bin/python
 import sys
@@ -32,7 +33,9 @@ newX = 0
 newY = 0
 pygame.init()
 screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
-pygame.display.set_caption("Use arrows to move!")
+pygame.display.set_caption("Knight's Quest")
+pygame.mixer.music.load('music/bg.mp3')
+pygame.mixer.music.play(-1)
 
 #set character animations and sizes
 character = Surface((16,32),pygame.SRCALPHA)
@@ -80,10 +83,16 @@ def main():
 	bgImg = pygame.image.load('images/bg1.png')
 	background.blit(bgImg, (0,0))
 	screen.blit(background, (0,0))
+	
 	pygame.display.update()
 	#bg = Surface((WIN_WIDTH,WIN_HEIGHT)).convert()
 	entities = pygame.sprite.Group()
-   
+	speech = pygame.image.load("images/title.png").convert()
+	speech = pygame.transform.scale(speech ,(171*2,108*2))
+	screen.blit(speech, (HALF_WIDTH - 171 ,HALF_HEIGHT - 108))
+	
+	pygame.display.update()
+	sleep(2)
 	x = y = 0
 	level = getLevel(currLevel)
 	
@@ -306,9 +315,9 @@ def getLevel(currLevel):
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"e                                          P",
 			"e                                          P",
-			"PPPP                                       P",
+			"PPP                                        P",
 			"P                              PP          P",
-			"P         P   PP                           P",
+			"P             PP                           P",
 			"P      PP                             PP   P",
 			"P                                    P     P",
 			"P                    PP                    P",
@@ -344,14 +353,14 @@ def getLevel(currLevel):
 			"                                                P",
 			"F                                               P",
 			"PPP                                             P",
-			"P            PP                        P        P",
-			"P                      PP                       P",
-			"P     P                         PP              P",
+			"P                                    P          P",
+			"P       PP             PP                       P",
+			"P               P              PP               P",
 			"P                                        PP     P",
-			"P                PP                             P",
-			"P  P                                            P",
+			"P                                               P",
+			"P                                               P",
 			"P                                     P         P",
-			"P        PP                                     P",
+			"P                                               P",
 			"P                                PP             P",
 			"P                       PP                      P",
 			"P                      P                        P",
