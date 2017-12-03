@@ -307,7 +307,7 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P               P                          P",
 			"P                                          P",
-			"         PP                                P",
+			"B        PP                                P",
 			"B                                          P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
@@ -350,7 +350,7 @@ def getLevel(currLevel):
 			"P                                               P",
 			"P                                               P",
 			"P                                      PPP      P",
-			"P                                                ",
+			"P                                               B",
 			"P                                               B",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
