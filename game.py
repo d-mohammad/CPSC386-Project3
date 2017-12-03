@@ -516,14 +516,14 @@ def getAction(action, flag):
 				pygame.draw.rect(screen, black, (500, 500, 100, 25), 0)
 				screen.blit(a, (500, 500))
 				
-		if(flag == 3):
-			a = dialogFont.render("You found me!", True, white)
-			b = dialogFont.render("Level Complete" , True, white)
-			pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
-			screen.blit(a, (400, 400))
-			screen.blit(b, (400, 430))
-			pygame.display.update()
-			sleep(3)
+	if(flag == 3):
+		a = dialogFont.render("You found me!", True, white)
+		b = dialogFont.render("Level Complete" , True, white)
+		pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
+		screen.blit(a, (400, 400))
+		screen.blit(b, (400, 430))
+		pygame.display.update()
+		sleep(3)
 			
 			
 			
