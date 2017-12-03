@@ -100,10 +100,15 @@ def main():
 			###################################
 			# Coin stuff
 			###################################
-			if col == "c":
-				c = Coin(x, y)
-				platforms.append(c)
-				entities.add(c)
+			#if col == "c":
+			#	c = Coin(x, y)
+			#	platforms.append(c)
+			#	entities.add(c)
+			
+			if col == "q":
+				q = Queen(x, y)
+				platforms.append(q)
+				entities.add(q)
 				
 			###################################
 			###################################
@@ -190,10 +195,15 @@ def main():
 					###################################
 					# Coin stuff
 					###################################
-					if col == "c":
-						c = Coin(x, y)
-						platforms.append(c)
-						entities.add(c)
+					#if col == "c":
+					#	c = Coin(x, y)
+					#	platforms.append(c)
+					#	entities.add(c)
+					
+					if col == "q":
+						q = Queen(x, y)
+						platforms.append(q)
+						entities.add(q)
 						
 					###################################
 					###################################
@@ -264,7 +274,7 @@ def getLevel(currLevel):
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
 			"P                                          e",
-			"P                                          e",
+			"P                                         qe",
 			"P                        PPPPPPPPP      PPPP",
 			"P                  PP                      P",
 			"P                PP                        P",
@@ -277,12 +287,12 @@ def getLevel(currLevel):
 			"P         PPPPPPP                          P",
 			"P       PP                                 P",
 			"P                     PPPPPP               P",
-			"P        c                                 P",
+			"P                                          P",
 			"P   PPPPPPPPPPP                            P",
 			"P                                          P",
-			"P                      c                   P",
+			"P                                          P",
 			"P                 PPPPPPPPPPP              P",
-			"P                            PPc           P",
+			"P                            PP            P",
 			"P                              PP          P",
 			"P                                          P",
 			"P                                         KP",
@@ -466,6 +476,14 @@ class Player(Entity):
 					self.yvel = 0
 				if yvel < 0:
 					self.rect.top = p.rect.bottom
+					
+		######################################################
+		for q in Queen:
+			if pygame.sprite.collide_rect(self, q):
+				q.kill()
+		######################################################
+					
+					
 	def animate(self):
 
 		if self.xvel > 0 or self.xvel < 0:
@@ -537,6 +555,13 @@ class Coin(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3))
 		self.rect = Rect(x, y, 16*3, 16*3*2)
 		
+		
+class Queen(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/coin.png").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
+		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)		
 ##########################################################
 ##########################################################
 		
