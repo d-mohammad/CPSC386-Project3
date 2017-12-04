@@ -1,5 +1,5 @@
 #Project 3 - CPSC 386 - MW 5:30 PM
-#AMMU - Danial Moahmmad, Felicia Aubert, Annette Ulrichsen, Christopher Menesis
+#AMMU - Danial Moahmmad, Felicia Aubert, Annette Ulrichsen, Christopher Meneses
 #Platformer - goal is to find the princess
 #Sources: Anthony Biron - https://www.youtube.com/channel/UCy0eKoY5BVtcJHFQGKVe1yg
 #ChiliGames - Knight images - https://opengameart.org/content/knight-and-knight-animation
@@ -286,8 +286,8 @@ def getLevel(currLevel):
 		level = [
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
-			"P                                          e",
-			"P                                          e",
+			"P                                         e ",
+			"P                                          p",
 			"P                        PPPPPPPPP       PPP",
 			"P                  PP                      P",
 			"P                PP                        P",
@@ -324,7 +324,7 @@ def getLevel(currLevel):
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"e                                          P",
-			"e                                          P",
+			"p                                          P",
 			"PPP                                        P",
 			"P                              PP          P",
 			"P             PP                           P",
@@ -541,18 +541,18 @@ class Princess(Entity):
 class ExitBlock(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/exit-block.png").convert_alpha()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3))
-		self.image.fill(Color("#0033FF"))
-		self.rect = Rect(x, y, 16*3, 16*3)
+		self.image = pygame.image.load("images/gate.png").convert_alpha()
+		self.image = pygame.transform.scale(self.image,(16*6, 16*6))
+		self.rect = Rect(x, y, 16*6, 16*6)
 		
 #used to determine exit to the previous map
 #currently image just set to blue filling for distinction
 class PreviousBlock(Platform):
 	def __init__(self, x, y):
-		Platform.__init__(self, x, y)
-		self.image.fill(Color("#0033FF"))
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/gate.png").convert_alpha()
+		self.image = pygame.transform.scale(self.image,(1,16*6))
+		self.rect = Rect(x, y, 16*6, 16*6)
 		
-
 if __name__ == "__main__":
 	main()
