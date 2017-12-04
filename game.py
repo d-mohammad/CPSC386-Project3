@@ -184,7 +184,7 @@ def main():
 				speech = pygame.image.load("images/princess-dialogue.png").convert_alpha()
 				screen.blit(speech, (40,0))
 				pygame.display.update()
-				sleep(2)
+				sleep(5)
 				break
 				
 			entities = pygame.sprite.Group()
@@ -234,7 +234,7 @@ def main():
 		#363 is width of image and 90 is height - will center it
 		screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
 		pygame.display.update()
-		sleep(2.5)
+		sleep(5)
 	#otherwise show failure message
 	else:
 		screen.fill(black)
@@ -242,7 +242,7 @@ def main():
 		#363 is width of image and 90 is height - will center it
 		screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
 		pygame.display.update()
-		sleep(2.5)
+		sleep(5)
 	
 #allows for the camera to focus on the player - source provided
 #at start of the file
@@ -286,8 +286,8 @@ def getLevel(currLevel):
 		level = [
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"P                                          P",
-			"P                                          e",
-			"P                                           ",
+			"P                                         e ",
+			"P                                          p",
 			"P                        PPPPPPPPP       PPP",
 			"P                  PP                      P",
 			"P                PP                        P",
@@ -324,7 +324,7 @@ def getLevel(currLevel):
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"e                                          P",
-			"                                           P",
+			"p                                          P",
 			"PPP                                        P",
 			"P                              PP          P",
 			"P             PP                           P",
@@ -345,8 +345,8 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P               P                          P",
 			"P                                          P",
-			"B         PP                               P",
-			"                                           P",
+			"B        PP                                P",
+			"B                                          P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
 		total_level_height = len(level)*16*3
@@ -389,7 +389,7 @@ def getLevel(currLevel):
 			"P                                               P",
 			"P                                      PPP      P",
 			"P                                               B",
-			"P                                                ",
+			"P                                               B",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
 		total_level_height = len(level)*16*3
@@ -542,8 +542,8 @@ class ExitBlock(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
 		self.image = pygame.image.load("images/gate.png").convert_alpha()
-		self.image = pygame.transform.scale(self.image,(16*3, 16*6))
-		self.rect = Rect(x, y, 16*3, 16*6)
+		self.image = pygame.transform.scale(self.image,(16*6, 16*6))
+		self.rect = Rect(x, y, 16*6, 16*6)
 		
 #used to determine exit to the previous map
 #currently image just set to blue filling for distinction
@@ -551,8 +551,8 @@ class PreviousBlock(Platform):
 	def __init__(self, x, y):
 		Entity.__init__(self)
 		self.image = pygame.image.load("images/gate.png").convert_alpha()
-		self.image = pygame.transform.scale(self.image,(16*3,16*6))
-		self.rect = Rect(x, y, 16*3, 16*6)
+		self.image = pygame.transform.scale(self.image,(1,16*6))
+		self.rect = Rect(x, y, 16*6, 16*6)
 		
 if __name__ == "__main__":
 	main()
