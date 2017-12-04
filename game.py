@@ -184,7 +184,7 @@ def main():
 				speech = pygame.image.load("images/princess-dialogue.png").convert_alpha()
 				screen.blit(speech, (40,0))
 				pygame.display.update()
-				sleep(2)
+				sleep(5)
 				break
 				
 			entities = pygame.sprite.Group()
@@ -234,7 +234,7 @@ def main():
 		#363 is width of image and 90 is height - will center it
 		screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
 		pygame.display.update()
-		sleep(2.5)
+		sleep(5)
 	#otherwise show failure message
 	else:
 		screen.fill(black)
@@ -242,7 +242,7 @@ def main():
 		#363 is width of image and 90 is height - will center it
 		screen.blit(speech, (HALF_WIDTH - 363/2, HALF_HEIGHT - 90/2))
 		pygame.display.update()
-		sleep(2.5)
+		sleep(5)
 	
 #allows for the camera to focus on the player - source provided
 #at start of the file
