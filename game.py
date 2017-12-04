@@ -516,7 +516,7 @@ class Player(Entity):
 class Platform(Entity):
 	def __init__(self, x, y):
 		Entity.__init__(self)
-		self.image = pygame.image.load("images/block.png").convert_alpha()
+		self.image = pygame.image.load("images/cloud.png").convert_alpha()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3))
 		self.rect = Rect(x, y, 16*3, 16*3)
 
