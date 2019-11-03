@@ -95,6 +95,18 @@ def main():
 				k = King(x, y)
 				platforms.append(k)
 				entities.add(k)
+				
+			###################################
+			# Coin stuff
+			###################################
+			if col == "c":
+				c = Coin(x, y)
+				platforms.append(c)
+				entities.add(c)
+				
+			###################################
+			###################################
+					
 			x += 16*3
 		y += 16*3
 		x = 0
@@ -104,6 +116,11 @@ def main():
 	camera = Camera(complex_camera, total_level_width, total_level_height)
 	player = Player(newX, newY)
 	entities.add(player)
+	###################################
+	items = pygame.sprite.Group()
+	coin = Coin(500,355,{'coin':1}, coinImg)
+	items.add(coin)
+	###################################
 
 	while 1:
 		timer.tick(60)
@@ -137,7 +154,7 @@ def main():
 		screen.blit(background,(0,0))
 		camera.update(player)
 		# update player, draw everything else
-		player.update(up, down, left, right, running, platforms, action)     
+		player.update(up, down, left, right, running, platforms, action, items)     
 		
 		#if reached portal, reset variables and draw next map
 		if (moveNext == True or movePrev == True):
@@ -173,6 +190,19 @@ def main():
 						k = King(x, y)
 						platforms.append(k)
 						entities.add(k)
+						
+					###################################
+					# Coin stuff
+					###################################
+					if col == "c":
+						c = Coin(x, y)
+						platforms.append(c)
+						entities.add(c)
+						
+					###################################
+					###################################
+						
+						
 					x += 16*3
 				y += 16*3
 				x = 0
@@ -251,12 +281,12 @@ def getLevel(currLevel):
 			"P         PPPPPPP                          P",
 			"P       PP                                 P",
 			"P                     PPPPPP               P",
-			"P                                          P",
+			"P        c                                 P",
 			"P   PPPPPPPPPPP                            P",
 			"P                                          P",
-			"P                                          P",
+			"P                      c                   P",
 			"P                 PPPPPPPPPPP              P",
-			"P                            PP            P",
+			"P                            PPc           P",
 			"P                              PP          P",
 			"P                                          P",
 			"P                                         KP",
@@ -381,7 +411,7 @@ class Player(Entity):
 		self.image = knightstand1
 		self.rect = Rect(x, y, 16*4, 32*3)
 
-	def update(self, up, down, left, right, running, platforms, action):
+	def update(self, up, down, left, right, running, platforms, action, movex, movey, items):
 		if up:
 			# only jump if on the ground
 			if self.onGround: self.yvel -= 10
@@ -415,6 +445,13 @@ class Player(Entity):
 		self.collide(0, self.yvel, platforms, action)
 
 		self.animate()
+		
+	###############################################	
+	#def update(self, movex, movey, items):
+    		self.moveSprite(movex, movey)
+    		self.itemsCollision(items)
+    		self.render()
+	################################################
 
 	def collide(self, xvel, yvel, platforms, action):
 		for p in platforms:
@@ -462,6 +499,20 @@ class Player(Entity):
 	def updatecharacter(self, ansurf):
 		if not self.faceright: ansurf = pygame.transform.flip(ansurf,True,False)
 		self.image = ansurf
+		
+	####################################################	
+	def itemsCollision(self, items):
+    		pygame.sprite.spritecollide(self, items, True)	
+	#####################################################	
+	
+	#####################################################
+	def itemsCollision(self, items):
+    		collisionList = pygame.sprite.spritecollide(self, items, True)
+    		for collision in collisionList:
+        		item = collision.pickUp()
+       			#self.updateInventory(item)
+	######################################################
+	
 #action
 def getAction(action, flag):
 	#kingFlag  
@@ -487,6 +538,25 @@ class King(Entity):
 		self.image = pygame.image.load("images/king.png").convert()
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		
+##########################################################
+# Added by Anette for the coin
+##########################################################
+class Coin(Entity):
+	def __init__(self, x, y):
+		Entity.__init__(self)
+		self.image = pygame.image.load("images/coin.png").convert()
+		self.image = pygame.transform.scale(self.image,(16*3,16*3))
+		self.rect = Rect(x, y, 16*3, 16*3*2)
+		self.itemType = itemType
+		coinImg = 'items/coin.png'
+		
+	def pickUp(self):
+        #self.playSound()
+        	return self.itemType
+		
+##########################################################
+##########################################################
 		
 class Background(Entity):
 	def __init__(self, image, x, y):
