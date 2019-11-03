@@ -89,26 +89,11 @@ def main():
 				platforms.append(e)
 				entities.add(e)
 				
-					
-			if col == "f":
-				f = ExitBlock2(x, y)
-				platforms.append(f)
-				entities.add(f)
-						
-			if col == "g":
-				g = ExitBlock3(x, y)
-				platforms.append(g)
-				entities.add(g)
-				
 			if col == "B":
 				B = PreviousBlock(x, y)
 				platforms.append(B)
 				entities.add(B)
-				
-			if col == "b":
-				b = PreviousBlock2(x, y)
-				platforms.append(b)
-				entities.add(b)	
+		
 					
 			if col == "K":
 				k = King(x, y)
@@ -186,26 +171,12 @@ def main():
 						platforms.append(e)
 						entities.add(e)
 						
-					if col == "f":
-						f = ExitBlock2(x, y)
-						platforms.append(f)
-						entities.add(f)
-						
-					if col == "g":
-						g = ExitBlock3(x, y)
-						platforms.append(g)
-						entities.add(g)
 					
-						
 					if col == "B":
 						B = PreviousBlock(x, y)
 						platforms.append(B)
 						entities.add(B)
-						
-					if col == "b":
-						b = PreviousBlock2(x, y)
-						platforms.append(b)
-						entities.add(b)
+					
 						
 					if col == "K":
 						k = King(x, y)
@@ -230,7 +201,7 @@ def main():
 	
 	font = pygame.font.Font(None, 50)
 	BLACK = (0,0,0)
-	text = font.render("Game Over", True, BLACK)
+	text = font.render("You Win!!!", True, BLACK)
 	text_rect = text.get_rect()
 	text_x = WIN_WIDTH / 2 - text_rect.width / 2
 	text_y = WIN_HEIGHT / 2 - text_rect.height / 2
@@ -315,7 +286,7 @@ def getLevel(currLevel):
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"                                           P",
-			"f                                          P",
+			"e                                          P",
 			"PPPP                                       P",
 			"P                              PP          P",
 			"P         P   PP                           P",
@@ -336,7 +307,7 @@ def getLevel(currLevel):
 			"P                                          P",
 			"P               P                          P",
 			"P                                          P",
-			"         PP                                P",
+			"B        PP                                P",
 			"B                                          P",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
@@ -352,7 +323,7 @@ def getLevel(currLevel):
 		level = [	
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 			"                                                P",
-			"g                                               P",
+			"e                                               P",
 			"PPP                                             P",
 			"P            PP                        P        P",
 			"P                      PP                       P",
@@ -379,8 +350,8 @@ def getLevel(currLevel):
 			"P                                               P",
 			"P                                               P",
 			"P                                      PPP      P",
-			"P                                                ",
-			"P                                               b",
+			"P                                               B",
+			"P                                               B",
 			"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
 		total_level_width  = len(level[0])*16*3
 		total_level_height = len(level)*16*3
@@ -462,10 +433,7 @@ class Player(Entity):
 				if isinstance(p, PreviousBlock):
 					global movePrev
 					movePrev = True
-					
-				if isinstance(p, PreviousBlock2):
-					global movePrev
-					movePrev = True
+				
 					
 				if isinstance(p, ExitBlock):
 					#go to next level based on currLevel variable
@@ -480,29 +448,7 @@ class Player(Entity):
 					moveNext = True
 					#pygame.event.post(pygame.event.Event(QUIT))
 					
-				if isinstance(p, ExitBlock2):
-					#go to next level based on currLevel variable
-					a = dialogFont.render("You found me!", True, white)
-					b = dialogFont.render("Level passed" , True, white)
-					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
-					screen.blit(a, (400, 400))
-					screen.blit(b, (400, 430))
-					pygame.display.update()
-					sleep(3)
-					global moveNext
-					moveNext = True
-					
-				if isinstance(p, ExitBlock3):
-					#go to next level based on currLevel variable
-					a = dialogFont.render("You found me!", True, white)
-					b = dialogFont.render("Level passed" , True, white)
-					pygame.draw.rect(screen, black, (400, 400, 300, 100), 0)
-					screen.blit(a, (400, 400))
-					screen.blit(b, (400, 430))
-					pygame.display.update()
-					sleep(3)
-					global moveNext
-					moveNext = True	
+				
 				if isinstance(p, King):
 					getAction(action, KINGFLAG)
 				if xvel > 0:
@@ -581,25 +527,7 @@ class King(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
-##########################################################
-# Added by Anette for the coin
-##########################################################
-class Coin(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/coin.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3))
-		self.rect = Rect(x, y, 16*3, 16*3*2)
-		
-class Queen(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/king.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-##########################################################
-##########################################################
+
 		
 class Background(Entity):
 	def __init__(self, image, x, y):
@@ -614,34 +542,13 @@ class ExitBlock(Entity):
 		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
 		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
 		
-class ExitBlock2(Entity):
+		
+
+class PreviousBlock(Platform):
 	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/p2.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
+		Platform.__init__(self, x, y)
+		self.image.fill(Color("#0033FF"))
 		
-class ExitBlock3(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/p3.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)		
-		
-class PreviousBlock(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/princess.jpg").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-class PreviousBlock2(Entity):
-	def __init__(self, x, y):
-		Entity.__init__(self)
-		self.image = pygame.image.load("images/p2.png").convert()
-		self.image = pygame.transform.scale(self.image,(16*3,16*3*2))
-		self.rect = Rect(x, y-16*3, 16*3, 16*3*2)
-		
-		
+
 if __name__ == "__main__":
 	main()
